@@ -22,6 +22,7 @@ class HomeController extends Controller
 
         return response()->json([
             'share-name' => $file->share_name,
+            'force-download' => $file->force_download,
             'visibility' => $file->visibility,
             'password' => $file->visibility == Visibility::PUBLIC_WITH_PASSWORD ? decrypt($file->password) : '',
             'allowed-users' => $file->allowed_users,

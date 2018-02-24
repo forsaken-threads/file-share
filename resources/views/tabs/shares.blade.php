@@ -63,11 +63,19 @@
                 <a role="button" class="text-info" data-toggle="modal" data-target="#file-edit" data-file-id="{{ $file->name }}">
                     <i class="fas fa-edit"></i>
                 </a> &nbsp;
-                <i class="fas fa-trash text-danger"></i> &nbsp;
+                {{--<i class="fas fa-trash text-danger"></i> &nbsp;--}}
+                Links:
+                @if($file->preview())
+                    <a href="#" role="button" tabindex="-1" class="text-primary never-focus"
+                       data-placement="top" data-title="Copied to Clipboard" data-toggle="popover"
+                       data-content='<input type="text" value="{{ route('file', [$file->name, $file->preview()]) }}" size="{{ strlen(route('file', [$file->name, $file->preview()])) + 5 }}" />' >
+                        <i class="fas fa-eye"></i>
+                    </a>
+                @endif
                 <a href="#" role="button" tabindex="-1" class="text-primary never-focus"
                    data-placement="top" data-title="Copied to Clipboard" data-toggle="popover"
-                   data-content='<input type="text" value="{{ route('file', [$file->name, $file->preview()]) }}" size="{{ strlen(route('file', $file->name)) + 3 }}" />' >
-                    <i class="fas fa-link"></i>
+                   data-content='<input type="text" value="{{ route('file', [$file->name]) }}" size="{{ strlen(route('file', [$file->name])) + 3 }}" />' >
+                    <i class="fas fa-download"></i>
                 </a>
             </td>
         </tr>
