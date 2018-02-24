@@ -8,7 +8,11 @@ php_value upload_max_filesize 500M
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    <IfModule mod_ssl.c>
+        RewriteCond %{HTTPS} off
+        RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]    # Handle Authorization Header
+    </IfModule>
+
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
