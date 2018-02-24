@@ -28,7 +28,7 @@
             <tr>
                 <th>File Name</th>
                 <th>Shared By - At </th>
-                <th><i class="fas fa-download"></i> - Downloads</th>
+                <th><i class="fas fa-eye"></i> / <i class="fas fa-download"></i> - Downloads</th>
             </tr>
         </thead>
         <tbody>
