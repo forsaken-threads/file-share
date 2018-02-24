@@ -1,0 +1,21 @@
+input.password {
+    text-security: disc;
+    -webkit-text-security: disc;
+    -mox-text-security: disc;
+}
+
+.input-toggle.off {
+    display: none;
+}
+
+.input-toggle.on {
+    display: block;
+}
+
+.never-focus {
+    outline: none !important;
+}
+
+.popover {
+    max-width: 100%;
+}
