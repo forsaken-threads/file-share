@@ -29,7 +29,7 @@
             </tr>
         </tbody>
     </table>
-    <form method="post" action="{{ route('file', $file->name) }}">
+    <form method="post" action="{{ route('file', [$file->name, $file->preview()]) }}">
         {{ csrf_field() }}
         <div class="form-group">
             <label for="file-password-input" class="control-label">Password</label>

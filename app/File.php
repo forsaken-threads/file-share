@@ -9,11 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     /**
+     * @return float
+     */
+    public function getDirAttribute()
+    {
+        return floor($this->id / 500);
+    }
+
+    /**
      * @return string
      */
     public function getPathAttribute()
     {
-        return floor($this->id / 500);
+        return storage_path('app/' . $this->dir . '/' . $this->id);
     }
 
     /**
@@ -22,6 +30,29 @@ class File extends Model
     public function isMine()
     {
         return auth()->check() && auth()->user()->id == $this->user_id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function preview()
+    {
+        if ($this->force_download) {
+            return null;
+        }
+
+        switch (mime_content_type($this->path)) {
+            case 'application/pdf':
+                // fall through
+            case 'image/jpeg':
+                // fall through
+            case 'image/png':
+                // fall through
+            case 'image/gif':
+                return 'preview';
+        }
+
+        return null;
     }
 
     /**

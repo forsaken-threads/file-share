@@ -9,7 +9,7 @@
         $('#file-password').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget);
             var fileId = button.data('file-id');
-            $(this).find('form').attr('action', '{{ route('file', '') }}/' + fileId);
+            $(this).find('form').attr('action', '{{ route('file', ['']) }}/' + fileId);
         }).on('shown.bs.modal', function() {
             $('#file-password-input').focus();
         }).on('hidden.bs.modal', function() {
@@ -38,11 +38,11 @@
                     <td>{{ $file->user->name }} - {{ $file->created_at }} </td>
                     <td>
                         @if($file->visibility == \App\Visibility::PUBLIC_WITHOUT_PASSWORD)
-                            <a href="{{ route('file', $file->name) }}">
-                                <i class="fas fa-download text-success"></i>
+                            <a href="{{ route('file', [$file->name, $file->preview()]) }}">
+                                <i class="fas fa-{{ $file->preview() ? 'eye' : 'download' }} text-success"></i>
                             </a>
                         @else
-                            <a role="button" class="text-danger" data-toggle="modal" data-target="#file-password" data-file-id="{{ $file->name }}">
+                            <a role="button" class="text-danger" data-toggle="modal" data-target="#file-password" data-file-id="{{ $file->name }}/{{ $file->preview() }}">
                                 <i class="fas fa-download" title="Requires Password"></i>
                             </a>
                         @endif

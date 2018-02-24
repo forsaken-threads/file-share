@@ -14,6 +14,13 @@
         <input type="file" id="shared_file" name="shared_file" required />
     </div>
     <div class="form-group">
+        <label for="shared-force-download">Force Download</label>
+        <select class="form-control" id="shared-force-download" name="shared_force_download">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+    </div>
+    <div class="form-group">
         <label for="visibility">Visibility</label>
         <select id="visibility" name="visibility" class="form-control">
             @foreach (\App\Visibility::all() as $visibility)

@@ -55,11 +55,13 @@ class HomeController extends Controller
 
         $this->validate($request, [
             'edit_share_name' => 'required',
+            'edit_force_download' => 'required|boolean',
             'edit_visibility' => 'required|exists:visibilities,id',
             'edit_password' => 'required_if:edit_visibility,3'
         ]);
 
         $file->share_name = $request->get('edit_share_name');
+        $file->force_download = $request->get('edit_force_download');
         $file->visibility = $request->get('edit_visibility');
         if ($file->visibility == 3) {
             $file->password = encrypt($request->get('edit_password'));
@@ -79,6 +81,7 @@ class HomeController extends Controller
     {
         $this->validate($request, [
             'shared_file' => 'required|file',
+            'shared_force_download' => 'required|boolean',
             'visibility' => 'required|exists:visibilities,id',
             'shared_password' => 'required_if:visibility,3'
         ]);
@@ -91,6 +94,7 @@ class HomeController extends Controller
             $file->user_id = auth()->user()->id;
             $file->original_name = $upload->getClientOriginalName();
             $file->share_name = $upload->getClientOriginalName();
+            $file->force_download = $request->get('shared_force_download');
             $file->mime_type = $upload->getClientMimeType();
             $file->size = $upload->getClientSize();
             $file->visibility = $request->get('visibility');
@@ -99,7 +103,7 @@ class HomeController extends Controller
             }
             $file->save();
 
-            $upload->storeAs($file->path, $file->id);
+            $upload->storeAs($file->dir, $file->id);
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();

@@ -59,14 +59,14 @@
             <td>{{ $file->user->name }} ({{ $file->created_at }})</td>
             <td>{{ $file->downloads }}</td>
             <td>
-                <a href="{{ route('file', $file->name) }}" class="text-info"><i class="fas fa-download"></i></a> &nbsp;
+                <a href="{{ route('file', [$file->name, $file->preview()]) }}" class="text-info"><i class="fas fa-download"></i></a> &nbsp;
                 <a role="button" class="text-info" data-toggle="modal" data-target="#file-edit" data-file-id="{{ $file->name }}">
                     <i class="fas fa-edit"></i>
                 </a> &nbsp;
                 <i class="fas fa-trash text-danger"></i> &nbsp;
                 <a href="#" role="button" tabindex="-1" class="text-primary never-focus"
                    data-placement="top" data-title="Copied to Clipboard" data-toggle="popover"
-                   data-content='<input type="text" value="{{ route('file', $file->name) }}" size="{{ strlen(route('file', $file->name)) + 3 }}" />' >
+                   data-content='<input type="text" value="{{ route('file', [$file->name, $file->preview()]) }}" size="{{ strlen(route('file', $file->name)) + 3 }}" />' >
                     <i class="fas fa-link"></i>
                 </a>
             </td>
@@ -94,6 +94,13 @@
                     <div class="form-group">
                         <label for="edit-share-name" class="control-label">Share Name</label>
                         <input type="text" class="form-control" id="edit-share-name" name="edit_share_name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-force-download">Force Download</label>
+                        <select class="form-control" id="edit-force-download" name="edit_force_download">
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit-visibility">Visibility</label>

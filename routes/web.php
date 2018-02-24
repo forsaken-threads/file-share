@@ -15,7 +15,7 @@ Route::get('/', 'PublicController@welcome')->name('welcome');
 Route::get('/about', 'PublicController@about')->name('about');
 Route::get('/public', 'PublicController@publicShares')->name('public');
 
-Route::match(['get', 'post'], '/file/{id}', 'FileController@get')->name('file');
+Route::match(['get', 'post'], '/file/{id}/{preview?}', 'FileController@get')->name('file')->where('preview', 'preview');
 
 Auth::routes();
 
